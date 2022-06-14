@@ -3,6 +3,7 @@
 - PHP 8.1 or above
 - Composer
 - Rename `.env-example` to `.env`
+- Run `composer install`
 
 ### RUN PHP IN DOCKER
 
