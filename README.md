@@ -12,3 +12,9 @@
 ### RUN COMPOSER IN WINDOWS
 
 `composer create-project symfony/skeleton project-name`
+
+### DOCTRINE
+
+- Migrations: 
+    - `php bin\console doctrine:migrations:diff`
+    - `php bin\console doctrine:migrations:migrate`
