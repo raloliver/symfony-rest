@@ -3,6 +3,7 @@
 - PHP 8.1 or above
 - Composer
 - Rename `.env-example` to `.env`
+- Run `composer install`
 
 ### RUN PHP IN DOCKER
 
@@ -11,3 +12,9 @@
 ### RUN COMPOSER IN WINDOWS
 
 `composer create-project symfony/skeleton project-name`
+
+### DOCTRINE
+
+- Migrations: 
+    - `php bin\console doctrine:migrations:diff`
+    - `php bin\console doctrine:migrations:migrate`
