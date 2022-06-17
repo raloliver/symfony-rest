@@ -4,12 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Doctor;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DoctorsController
+class DoctorsController extends AbstractController
 {
 
     /**
@@ -43,5 +45,29 @@ class DoctorsController
 
         //JsonResponse give to client more data at header about the response
         return new JsonResponse($doctor);
+    }
+
+    /**
+     * @Route("/doctors", methods={"GET"})
+     */
+    public function getAll(ManagerRegistry $doctrine): Response
+    {
+        $doctorsRepository = $doctrine->getRepository(Doctor::class);
+        $allDoctors = $doctorsRepository->findAll();
+
+        return new JsonResponse($allDoctors);
+    }
+
+    /**
+     * @Route("/doctors/{id}", methods={"GET"})
+     */
+    public function getById(Request $request, ManagerRegistry $doctrine): Response
+    {
+        $doctorId = $request->get(key: 'id');
+        $doctorsRepository = $doctrine->getRepository(Doctor::class);
+        $doctorById = $doctorsRepository->find($doctorId);
+        $statusCode = is_null($doctorById) ? Response::HTTP_NO_CONTENT : 200;
+
+        return new JsonResponse($doctorById, $statusCode);
     }
 }
