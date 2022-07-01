@@ -70,4 +70,34 @@ class DoctorsController extends AbstractController
 
         return new JsonResponse($doctorById, $statusCode);
     }
+
+    /**
+     * @Route("/doctors/{id}", methods={"PUT"})
+     */
+    public function updateById(Request $request, ManagerRegistry $doctrine): Response
+    {
+        $doctorId = $request->get(key: 'id');
+
+        $requestBody = $request->getContent();
+        $requestBodyJSON = json_decode($requestBody);
+
+        $doctor = new Doctor();
+        $doctor->crm = $requestBodyJSON->crm;
+        $doctor->fullName = $requestBodyJSON->fullName;
+
+        $doctorsRepository = $doctrine->getRepository(Doctor::class);
+        $doctorById = $doctorsRepository->find($doctorId);
+
+        if (is_null($doctorById)) {
+            return new Response('', Response::HTTP_NOT_FOUND);
+        }
+
+        $doctorById->crm = $doctor->crm;
+        $doctorById->fullName = $doctor->fullName;
+
+        //we dont need to watch the entity cause it is already watched when was find
+        $this->entityManager->flush();
+
+        return new JsonResponse($doctorById);
+    }
 }
