@@ -59,11 +59,10 @@ class DoctorsController extends AbstractController
     }
 
     /**
-     * @Route("/doctors/{id}", methods={"GET"})
+     * @Route("/doctors/{doctorId}", methods={"GET"})
      */
-    public function getById(Request $request, ManagerRegistry $doctrine): Response
+    public function getById(int $doctorId, ManagerRegistry $doctrine): Response
     {
-        $doctorId = $request->get(key: 'id');
         $doctorsRepository = $doctrine->getRepository(Doctor::class);
         $doctorById = $doctorsRepository->find($doctorId);
         $statusCode = is_null($doctorById) ? Response::HTTP_NO_CONTENT : 200;
@@ -72,12 +71,10 @@ class DoctorsController extends AbstractController
     }
 
     /**
-     * @Route("/doctors/{id}", methods={"PUT"})
+     * @Route("/doctors/{doctorId}", methods={"PUT"})
      */
-    public function updateById(Request $request, ManagerRegistry $doctrine): Response
+    public function updateById(int $doctorId, Request $request, ManagerRegistry $doctrine): Response
     {
-        $doctorId = $request->get(key: 'id');
-
         $requestBody = $request->getContent();
         $requestBodyJSON = json_decode($requestBody);
 
