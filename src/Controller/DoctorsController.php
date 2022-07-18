@@ -102,7 +102,7 @@ class DoctorsController extends AbstractController
         return new JsonResponse($doctorById);
     }
 
-    public function getDoctorById(int $doctorId): Doctor
+    public function getDoctorById(int $doctorId)
     {
         $doctorsRepository = $this->doctrine->getRepository(Doctor::class);
         $doctorById = $doctorsRepository->find($doctorId);
