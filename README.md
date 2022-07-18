@@ -18,3 +18,6 @@
 - Migrations: 
     - `php bin\console doctrine:migrations:diff`
     - `php bin\console doctrine:migrations:migrate`
+
+- Creations:
+    - `php bin\console doctrine:database:create`
