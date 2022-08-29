@@ -93,8 +93,9 @@ class DoctorsController extends AbstractController
             return new Response('', Response::HTTP_NOT_FOUND);
         }
 
-        $doctorById->crm = $doctor->crm;
-        $doctorById->fullName = $doctor->fullName;
+        $doctorById
+            ->setCrm($doctor->getCrm())
+            ->setFullName($doctor->getFullName());
 
         //we dont need to watch the entity cause it is already watched when was find
         $this->entityManager->flush();
