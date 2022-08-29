@@ -7,7 +7,7 @@
 
 ### RUN PHP IN DOCKER
 
-`docker run -itv C:\Projects\php\symfony-rest:/app -w /app -p 8088:8088 php -S 0.0.0.0:8088 -t public`
+`docker run -itv C:\Projects\php\symfony-rest:/app -w /app -p 8088:8088 php -S localhost:8088 -t public`
 
 ### RUN COMPOSER IN WINDOWS
 
@@ -36,3 +36,8 @@
 When maker find a entity that exists, there is a way to add new props. After choose the name of it, it is possible to type `relation` and follow the tips to create.
 
 [![Maker Update Entity](https://t0pyja.dm.files.1drv.com/y4maxUlUeEhUyTvXZgbOW5cAN0xzJoIKh3YzB_HT6-CdLgBTF7cRKWA092c6-YBmB_IWn5WHk9mM2Ws_5bnyWFtMO_8PTZRsci-K8m3NIImpyFOpsOGRv13X0bc-5t-Rc8RzK1j0Te31zmUkUFI6Fvh3rhNT9Pf6IFsdPOqTGIp51sU7UNk88e-7oEfYawrAFcWAsjfFCRGdOeqI9OZ-UFjug/maker-update-entity.png?psid=1)](https://1drv.ms/u/s!Agre0RjhOj8Pg44N6FbyYW3ro8UxzQ)
+
+
+### FACTORY METHOD
+
+We create a method in a class that, from an input, creates an object. This is the purpose of the `Factory Method` pattern. It helped us when our model changed, and it made the code easier to maintain.
