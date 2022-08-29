@@ -103,6 +103,18 @@ class DoctorsController extends AbstractController
         return new JsonResponse($doctorById);
     }
 
+    /**
+     * @Route("/doctors/{doctorId}", methods={"DELETE"})
+     */
+    public function removeById(int $doctorId): Response
+    {
+        $doctorById = $this->getDoctorById($doctorId);
+        $this->entityManager->remove($doctorById);
+        $this->entityManager->flush();
+
+        return new Response('', Response::HTTP_NO_CONTENT);
+    }
+
     public function getDoctorById(int $doctorId)
     {
         $doctorsRepository = $this->doctrine->getRepository(Doctor::class);

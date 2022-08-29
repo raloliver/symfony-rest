@@ -60,4 +60,37 @@ class SpecialtyController extends AbstractController
     {
         return new JsonResponse($this->specialtyRepository->find($specialtyId));
     }
+
+    /**
+     * @Route("/specialty/{specialtyId}", methods={"PUT"})
+     */
+    public function updateById(int $specialtyId, Request $request): Response
+    {
+
+        $requestBody = $request->getContent();
+        $requestBodyJSON = json_decode($requestBody);
+
+        $specialty = $this->specialtyRepository->find($specialtyId);
+        $specialty->setDescription($requestBodyJSON->description);
+
+        if (is_null($specialty)) {
+            return new Response('', Response::HTTP_NOT_FOUND);
+        }
+
+        $this->entityManager->flush();
+
+        return new JsonResponse($specialty);
+    }
+
+    /**
+     * @Route("/specialty/{specialtyId}", methods={"DELETE"})
+     */
+    public function removeById(int $specialtyId): Response
+    {
+        $specialty = $this->specialtyRepository->find($specialtyId);
+        $this->entityManager->remove($specialty);
+        $this->entityManager->flush();
+
+        return new Response('', Response::HTTP_NO_CONTENT);
+    }
 }
