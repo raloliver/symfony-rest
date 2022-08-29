@@ -21,7 +21,7 @@ class DoctorsController extends AbstractController
     private $entityManager;
 
     /**
-     * @var DoctorFactory
+     * @var Doctrine
      */
     private $doctrine;
 
@@ -93,13 +93,26 @@ class DoctorsController extends AbstractController
             return new Response('', Response::HTTP_NOT_FOUND);
         }
 
-        $doctorById->crm = $doctor->crm;
-        $doctorById->fullName = $doctor->fullName;
+        $doctorById
+            ->setCrm($doctor->getCrm())
+            ->setFullName($doctor->getFullName());
 
         //we dont need to watch the entity cause it is already watched when was find
         $this->entityManager->flush();
 
         return new JsonResponse($doctorById);
+    }
+
+    /**
+     * @Route("/doctors/{doctorId}", methods={"DELETE"})
+     */
+    public function removeById(int $doctorId): Response
+    {
+        $doctorById = $this->getDoctorById($doctorId);
+        $this->entityManager->remove($doctorById);
+        $this->entityManager->flush();
+
+        return new Response('', Response::HTTP_NO_CONTENT);
     }
 
     public function getDoctorById(int $doctorId)
