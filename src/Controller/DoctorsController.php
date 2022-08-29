@@ -21,7 +21,7 @@ class DoctorsController extends AbstractController
     private $entityManager;
 
     /**
-     * @var DoctorFactory
+     * @var Doctrine
      */
     private $doctrine;
 
